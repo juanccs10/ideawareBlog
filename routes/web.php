@@ -11,7 +11,12 @@
 |
 */
 Auth::routes();
-
+Route::get('/', 'HomeController@index');
+Route::get('home', 'HomeController@index')->name('Home');
+Route::get('post/{id}', 'PostController@show')->name('post');
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/home', 'HomeController@index')->name('Home');
+    Route::get('create-post', 'PostController@createByUser')->name('create-post');
+    Route::post('store-post', 'PostController@storeByUser')->name('store-post');
+    Route::resource('users', 'UserController');
+    Route::resource('posts', 'PostController');
 });

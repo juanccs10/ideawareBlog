@@ -2,22 +2,19 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
+    <div class="row">
+        @foreach($posts as $post)
+        <div class="col-md-4">
+            <div class="card" style="margin-bottom: 25px;">
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
+                    <div class="card-title">
+                        <h4><b>{{ $post->title }}</b></h4><small>By {{ $post->users->name }}</small >
+                    </div>
+                    <a href="{{ route('post', ['id' => $post->id])}}" class="btn btn-primary">Go post</a>
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
 </div>
 @endsection
