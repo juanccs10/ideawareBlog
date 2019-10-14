@@ -72,7 +72,6 @@ class PostController extends Controller
 
     public function storeByUser(Request $request)
     {
-        $request->user()->authorizeRoles(['admin']);
 
         $request->validate([
             'title' => ['required', 'string'],
