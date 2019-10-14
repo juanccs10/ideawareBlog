@@ -10,7 +10,8 @@ use Validator;
 
 class AuthController extends BaseController
 {
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->accessToken;
@@ -20,9 +21,10 @@ class AuthController extends BaseController
         }
     }
 
-    public function test()
+    public function logout()
     {
-        $success = null;
-        return $this->sendResponse($success, 'Excelente Juan Camilo');
+        $user = Auth::user()->token();
+        $user->revoke();
+        return $this->sendResponse(null,'Logout successfully.');
     }
 }

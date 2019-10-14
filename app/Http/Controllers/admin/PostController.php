@@ -12,17 +12,20 @@ use Validator;
 
 class PostController extends BaseController
 {
-    public function getPosts(Request $request){
+    public function getPosts(Request $request)
+    {
         $success['posts'] = Post::with('users')->get();
         return $this->sendResponse($success, 'Posts-Successfully Returned');
     }
 
-    public function getPost(Request $request, $id){
+    public function getPost(Request $request, $id)
+    {
         $success['post'] = Post::where('id',$id)->first();
         return $this->sendResponse($success, 'Post-Successfully Returned');
     }
 
-    public function putPost(Request $request, $id){
+    public function putPost(Request $request, $id)
+    {
 
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string'],
@@ -43,7 +46,8 @@ class PostController extends BaseController
         return $this->sendResponse($success, 'Successfully updated post');
     }
 
-    public function postPosts(Request $request){
+    public function postPosts(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string'],
             'content' => ['required', 'string'],
@@ -66,7 +70,8 @@ class PostController extends BaseController
 
     }
 
-    public function deletePost(Request $request, $id){
+    public function deletePost(Request $request, $id)
+    {
         Post::where('id', $id)->delete();
         $success['post_id'] = $id;
         return $this->sendResponse($success, 'Post successfully deleted');
